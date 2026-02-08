@@ -1,0 +1,40 @@
+# Configuration for Fraud Detection System
+# Sprint 1: Producer Configuration
+
+producer:
+  # Kinesis stream configuration
+  stream_name: "fraud-transactions"
+  partition_key_field: "transaction_id" # Field to use for partitioning
+
+  # Batch settings
+  batch_size: 10 # Number of records per batch
+  batch_interval_ms: 1000 # Milliseconds between batches
+
+  # Rate limiting
+  max_records_per_second: 100
+
+  # Data generation
+  fraud_ratio: 0.05 # 5% of transactions are fraudulent
+  num_merchants: 1000 # Number of unique merchants
+  num_customers: 5000 # Number of unique customers
+
+# AWS Configuration
+aws:
+  region: "us-east-1"
+
+  # LocalStack settings (for local development)
+  localstack:
+    enabled: true
+    endpoint_url: "http://localhost:4566"
+    access_key_id: "test"
+    secret_access_key: "test"
+
+  # Real AWS settings (when localstack.enabled = false)
+  kinesis:
+    shard_count: 1
+
+# Logging configuration
+logging:
+  level: "INFO" # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "json" # json or text
+  output: "console" # console or file
